@@ -70,7 +70,18 @@ public class ProvaController {
 		return id_variabile;
 	}
 	
-	
+	/**
+	 * Aggiungere in pom.xml la dipendenza: com.fasterxml.jackson.dataformat
+	 * che trovate qui: https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml/2.17.1
+	 * @param persona
+	 * @return PersonaDTO in formato Xml
+	 */
+	@PostMapping(path = "/persona/xml", produces =  MediaType.APPLICATION_XML_VALUE) 
+	public PersonaDTO postPersonaXml(@RequestBody PersonaDTO persona) {	
+		persona.setNome(persona.getNome().toUpperCase());
+		persona.setCognome(persona.getCognome().toUpperCase());
+		return persona;
+	}
 	
 	
 	
