@@ -1,14 +1,17 @@
 package com.generation.es1spring.restcontroller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.es1spring.model.PersonaDTO;
+import com.generation.es1spring.service.PersonService;
 
 
 /**
@@ -23,11 +26,25 @@ import com.generation.es1spring.model.PersonaDTO;
  * 
  * Spring-Boot-Tutorial-base
  * https://github.com/nxingram/spring-boot-java/tree/main/Spring-Boot-Tutorial-base
+ * 
+ * Jaita116Spring
+ * https://github.com/nxingram/Jaita116Spring/tree/main
+ * 
+ * 
+ * RestController rispondere alle ichieste proventi da applicazioni o browser
  */
 @RestController // controller di tipo REST
 @RequestMapping("/api/persona") // rotta-action rest api
 public class PersonaController {
-//RestController rispondere alle ichieste proventi da applicazioni o browser
+
+	@Autowired
+	PersonService personaSrv; // se non instanzio la classe, la variabile è NULL!
+		
+//	@Autowired - non necessario
+//	public PersonaController(PersonService personaSrv) {
+//		this.personaSrv = personaSrv;
+//	}
+	
 	
 	/**
 	 * finisco qui quando chiamo l'url:
@@ -37,11 +54,14 @@ public class PersonaController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) //="application/json"
 	public PersonaDTO getPersona() {
-		PersonaDTO persona = new PersonaDTO();		
-		persona.setNome("Fabio");
-		persona.setCognome("Rossi");
-		
-		return persona;
+//		PersonaDTO persona = new PersonaDTO();		
+//		persona.setNome("Fabio3");
+//		persona.setCognome("Rossi");
+//		
+//		return persona;
+		PersonaDTO personaDef = personaSrv.nuovaPersonaDefaut();
+		System.out.println(personaDef.getCodicefiscale()); //restituisco solo i dati necessari, e nascondo le informazioni personali
+		return personaDef;
 	}
 	
 	/**
@@ -51,11 +71,12 @@ public class PersonaController {
 	@GetMapping(path = "/xml", produces = MediaType.APPLICATION_XML_VALUE) //="application/xml"
 	public PersonaDTO getPersonaXml()
 	{
-		PersonaDTO persona = new PersonaDTO();		
-		persona.setNome("Fabio");
-		persona.setCognome("Rossi");
-		
-		return persona;
+//		PersonaDTO persona = new PersonaDTO();		
+//		persona.setNome("Fabio3");
+//		persona.setCognome("Rossi");
+//		
+//		return persona;
+		return personaSrv.nuovaPersonaDefaut();
 	}
 	
 	
@@ -68,13 +89,16 @@ public class PersonaController {
 	//@RequestMapping(method = RequestMethod.POST)
 	@PostMapping() //abbreviazione di RequestMapping
 	public PersonaDTO postPersona(@RequestBody PersonaDTO persona) {	
-		persona.setNome(persona.getNome().toUpperCase());
-		persona.setCognome(persona.getCognome().toUpperCase());
-		return persona;
+//		persona.setNome(persona.getNome().toUpperCase());
+//		persona.setCognome(persona.getCognome().toUpperCase());
+//		return persona;
+		PersonaDTO personaUpper =  personaSrv.toUpper(persona);
+		return personaUpper;
 	}
 	
 	/**
-	 * localhost:8080/api/json/persona/4
+	 * PathVariable
+	 * localhost:8080/api/persona/4
 	 * @param id_variabile numero intero
 	 * @return numero intero
 	 */
@@ -84,8 +108,19 @@ public class PersonaController {
 		return id_variabile;
 	}
 	
-
-	
+	/**
+	 * RequestParam -> Querystring
+	 * https://it.wikipedia.org/wiki/Query_string
+	 * localhost:8080/api/persona/param?id_segnaposto=5&nome=fabio
+	 * @return int intero
+	 */
+	@GetMapping(path = "/param")
+	public String getPersonaByIdParam(
+			@RequestParam("id_segnaposto") int id_variabile, 
+			@RequestParam("nome") String nome) {
+		return id_variabile + " " + nome;
+		
+	}
 	
 	
 	
