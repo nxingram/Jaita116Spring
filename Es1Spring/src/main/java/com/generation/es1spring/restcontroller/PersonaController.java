@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.generation.es1spring.model.PersonaDTO;
 import com.generation.es1spring.service.PersonService;
 
@@ -37,9 +38,13 @@ import com.generation.es1spring.service.PersonService;
 @RequestMapping("/api/persona") // rotta-action rest api
 public class PersonaController {
 
-	@Autowired
-	PersonService personaSrv; // se non instanzio la classe, la variabile è NULL!
+	// se non instanzio la classe, la variabile è NULL!
+	//uso annotazione spring per inizializzare l'oggetto
+	//IoC: inversion of control - Dependency injection
+	@Autowired 
+	PersonService personaSrv; 
 		
+	//alternativa utilizzando il costruttore
 //	@Autowired - non necessario
 //	public PersonaController(PersonService personaSrv) {
 //		this.personaSrv = personaSrv;
@@ -60,7 +65,9 @@ public class PersonaController {
 //		
 //		return persona;
 		PersonaDTO personaDef = personaSrv.nuovaPersonaDefaut();
-		System.out.println(personaDef.getCodicefiscale()); //restituisco solo i dati necessari, e nascondo le informazioni personali
+		//restituisco solo i dati necessari, e nascondo le informazioni personali
+		//con l'annotazione @JsonIgnore sull'attributo della classe PersonDTO
+		System.out.println(personaDef.getCodicefiscale()); 
 		return personaDef;
 	}
 	
