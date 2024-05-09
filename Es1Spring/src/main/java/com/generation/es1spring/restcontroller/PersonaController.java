@@ -57,7 +57,7 @@ public class PersonaController {
 	 * produces: specifica il tipo di dato restituito nelle Response
 	 * @return PersonaDTO
 	 */
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) //="application/json"
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) //="application/json" - opzionale xè default
 	public PersonaDTO getPersona() {
 //		PersonaDTO persona = new PersonaDTO();		
 //		persona.setNome("Fabio3");
@@ -125,8 +125,7 @@ public class PersonaController {
 	public String getPersonaByIdParam(
 			@RequestParam("id_segnaposto") int id_variabile, 
 			@RequestParam("nome") String nome) {
-		return id_variabile + " " + nome;
-		
+		return id_variabile + " " + nome;		
 	}
 	
 	
