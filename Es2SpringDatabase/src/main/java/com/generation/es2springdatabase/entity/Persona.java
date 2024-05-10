@@ -2,6 +2,8 @@ package com.generation.es2springdatabase.entity;
 
 import org.springframework.boot.context.properties.bind.Name;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import jakarta.persistence.Table;
 @Table(name = "persone")
 public class Persona {
 
-	@Id() //chiave primaria
+	@Id //chiave primaria
 	@Column(name = "persona_id") //nome dell'attributo della tabella, nel caso fosse differente
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // l'autoincrement lo fa mysql, non java/spring
 	private int personaId; 	
@@ -22,6 +24,7 @@ public class Persona {
 	private String nome;
 	private String cognome;	
 	private int eta;	
+	@JsonIgnore
 	private double stipendio;
 	
 	

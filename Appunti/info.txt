@@ -1,0 +1,32 @@
+Web Service - applicazione web che mette a disposizione delle api di comunicazione
+API - application programming interface 
+        - insieme di Endpoint
+        - oppure i metodi di un'interfaccia
+Endpoint - singola api
+
+TLS - Transport Layer Security - la "s" di https
+
+
+ORM - Object-relational mapping
+        - libreria per mappare le tabelle di un database con le classi del nostro programma
+        - entità
+
+Multi-tier architecture
+1- Entità - mappatura della tabella
+2- Repository (DAL-data access layer) - interfaccia
+                - collegamento tra tabella e l'entità
+                - offre dei metodi CRUD: create,read,update,delete
+                - DAO -singolo data access object che accede al database
+
+2.5- Interfaccia del Service
+        -con i metodi da implementare
+3- Service
+        - che usa il Repository
+        - business logic: tutta la logica/personalizzazione dell'applicazione
+        -es fai l'aumento di stipendio a chi ha un'età superiore ai 55 anni
+        - implementiamo l'interfaccia per avere metodi visibili che possono essere utilizzati dai controllers
+        e altri non visibili
+
+4- RestController
+        - gestisce rotte/action e metodi
+        - Endpoint
