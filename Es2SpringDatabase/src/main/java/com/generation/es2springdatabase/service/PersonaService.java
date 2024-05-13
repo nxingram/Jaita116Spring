@@ -1,6 +1,5 @@
 package com.generation.es2springdatabase.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class PersonaService {
 	
 	public Persona getById(int idPersona) {
 		try {
-			//Optional è la promessa di java
+			
 			Optional<Persona> personaOptional = personaRepo.findById(idPersona);
 			
 			if(personaOptional.isEmpty())
@@ -43,5 +42,10 @@ public class PersonaService {
 		
 		return new Persona();
 		
+	}
+
+	public Persona addOrUpdate(Persona persona) {
+		Persona nuovaPersona = personaRepo.save(persona);
+		return nuovaPersona;
 	}
 }

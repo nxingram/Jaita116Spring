@@ -1,6 +1,5 @@
 package com.generation.es2springdatabase.entity;
 
-import org.springframework.boot.context.properties.bind.Name;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,14 +22,21 @@ public class Persona {
 	//@Column(name = "nome") //se il nome dell'attributo mysql coincide con quello di java, @Column-name è opzionale
 	private String nome;
 	private String cognome;	
-	private int eta;	
-	@JsonIgnore
+	private int eta;
+	
+	@JsonIgnore //nascondi lo stipendio quando generi il json nella riposta
 	private double stipendio;
 	
 	
 	//se io aggiungo un costtore con dei parametri, devo aggiungere manualmente il costruttore vuoto
 	public Persona(int personaId, String nome, String cognome, int eta, double stipendio) {
 		this.personaId = personaId;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.eta = eta;
+		this.stipendio = stipendio;
+	}
+	public Persona( String nome, String cognome, int eta, double stipendio) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;

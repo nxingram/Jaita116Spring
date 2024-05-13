@@ -16,5 +16,5 @@ import com.generation.es2springdatabase.entity.Persona;
 @Repository //opzionale
 public interface PersonaRepository extends JpaRepository<Persona, Integer> {
 
-	
+		
 }
