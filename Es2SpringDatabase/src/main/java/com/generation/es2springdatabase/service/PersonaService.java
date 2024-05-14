@@ -13,39 +13,26 @@ import com.generation.es2springdatabase.repository.PersonaRepository;
 public class PersonaService {
 
 	@Autowired
-	PersonaRepository personaRepo; 
-	
-	
-	public List<Persona> getAll(){		
+	PersonaRepository personaRepo;
+
+	public List<Persona> getAll() {
 		List<Persona> persone = personaRepo.findAll();
 		return persone;
 	}
-	
-	public Persona getById(int idPersona) {
-		try {
-			
-			Optional<Persona> personaOptional = personaRepo.findById(idPersona);
-			
-			if(personaOptional.isEmpty())
-			{
-				//return new Persona();	
-				return null;
-			}
-			else			
-			{
-				return personaOptional.get();				
-			}
-			
-		} catch (Exception e) {
-			System.err.println(e);
-		}
-		
-		return new Persona();
-		
+
+	public Optional<Persona> getById(int idPersona) {
+		Optional<Persona> personaOptional = personaRepo.findById(idPersona);
+		return personaOptional;
 	}
 
 	public Persona addOrUpdate(Persona persona) {
 		Persona nuovaPersona = personaRepo.save(persona);
 		return nuovaPersona;
 	}
+
+	public void deleteById(Persona persona) {
+		personaRepo.delete(persona);		
+	}
+
+
 }
