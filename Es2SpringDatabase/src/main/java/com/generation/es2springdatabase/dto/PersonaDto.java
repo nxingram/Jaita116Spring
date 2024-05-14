@@ -1,5 +1,7 @@
 package com.generation.es2springdatabase.dto;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class PersonaDto {
@@ -7,7 +9,7 @@ public class PersonaDto {
 	private String nome;
 	private String cognome;
 	private int eta;
-	private double stipendio;
+	private BigDecimal stipendio;
 
 	public int getPersonaId() {
 		return personaId;
@@ -41,11 +43,11 @@ public class PersonaDto {
 		this.eta = eta;
 	}
 
-	public double getStipendio() {
+	public BigDecimal getStipendio() {
 		return stipendio;
 	}
 
-	public void setStipendio(double stipendio) {
+	public void setStipendio(BigDecimal stipendio) {
 		this.stipendio = stipendio;
 	}
 

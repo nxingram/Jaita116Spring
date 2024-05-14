@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.es2springdatabase.dto.PersonaDto;
 import com.generation.es2springdatabase.entity.Persona;
 import com.generation.es2springdatabase.service.PersonaService;
+import com.generation.es2springdatabase.service.PersonaServiceImplementation;
 
 @CrossOrigin("*")
 @RestController
@@ -53,6 +54,9 @@ public class PersonaController {
 		}else {
 			return new ResponseEntity<Persona>(optional.get(), HttpStatus.OK);
 		}
+		
+	
+		
 	}
 	
 	//locahost:8080/api/persona POST: aggiungere - modifica

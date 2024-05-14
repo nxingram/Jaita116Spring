@@ -1,6 +1,8 @@
 package com.generation.es2springdatabase.entity;
 
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -11,7 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "persone")
+@Table(name = "persone_new")
 public class Persona {
 
 	@Id //chiave primaria
@@ -20,23 +22,33 @@ public class Persona {
 	private int personaId; 	
 	
 	//@Column(name = "nome") //se il nome dell'attributo mysql coincide con quello di java, @Column-name è opzionale
+	@Column(length = 100)
 	private String nome;
+	@Column(length = 150)
 	private String cognome;	
 	private int eta;
 	
 	@JsonIgnore //nascondi lo stipendio quando generi il json nella riposta
-	private double stipendio;
+	@Column(precision = 8, scale = 2)
+	private BigDecimal stipendio;
+	
+	@Column(length = 100, unique = true)
+	private String email;
+	
+	@JsonIgnore
+	private String password;
 	
 	
 	//se io aggiungo un costtore con dei parametri, devo aggiungere manualmente il costruttore vuoto
-	public Persona(int personaId, String nome, String cognome, int eta, double stipendio) {
+	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio) {
 		this.personaId = personaId;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
 		this.stipendio = stipendio;
 	}
-	public Persona( String nome, String cognome, int eta, double stipendio) {
+	
+	public Persona( String nome, String cognome, int eta, BigDecimal stipendio) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
@@ -91,15 +103,32 @@ public class Persona {
 		this.eta = eta;
 	}
 
-
-	public double getStipendio() {
+	public BigDecimal getStipendio() {
 		return stipendio;
 	}
 
-
-	public void setStipendio(double stipendio) {
+	public void setStipendio(BigDecimal stipendio) {
 		this.stipendio = stipendio;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
 	
 	
 	
