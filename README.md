@@ -7,5 +7,8 @@
 - [Spring](https://spring.io/)
 - [Spring initializer](https://start.spring.io/)
 
+## Dipendenze utili
+[Openapi Swagger esempio baeldung](https://www.baeldung.com/spring-rest-openapi-documentation)
+
 ## Appunti 
 - [Appunti](https://github.com/nxingram/Jaita116Spring/tree/main/Appunti)
