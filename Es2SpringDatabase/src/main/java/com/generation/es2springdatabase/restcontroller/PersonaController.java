@@ -66,9 +66,17 @@ public class PersonaController {
 				personaDto.getNome(),
 				personaDto.getCognome(),
 				personaDto.getEta(),
-				personaDto.getStipendio()
+				personaDto.getStipendio(),
+				personaDto.getEmail(),
+				personaDto.getPassword()
 				);		
 		
+		Persona esisteGia = personaService.findByEmail(pers.getEmail());
+		if(esisteGia != null)
+		{
+			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
+		}
+			
 		Persona personaNew = personaService.addOrUpdate(pers);
 		return new ResponseEntity<Persona>(personaNew, HttpStatus.OK);	
 		
@@ -82,8 +90,16 @@ public class PersonaController {
 				personaDto.getNome(),
 				personaDto.getCognome(),
 				personaDto.getEta(),
-				personaDto.getStipendio()
+				personaDto.getStipendio(),
+				personaDto.getEmail(),
+				personaDto.getPassword()
 				);		
+		
+		Persona esisteGia = personaService.findByEmail(pers.getEmail());
+		if(esisteGia != null)
+		{
+			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
+		}
 		
 		Persona personaNew = personaService.addOrUpdate(pers);
 		return new ResponseEntity<Persona>(personaNew, HttpStatus.OK);	

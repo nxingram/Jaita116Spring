@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.generation.es2springdatabase.dto.LoginEsito;
 import com.generation.es2springdatabase.entity.Persona;
 import com.generation.es2springdatabase.repository.PersonaRepository;
 
@@ -31,6 +32,8 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 
 	@Override
 	public Persona addOrUpdate(Persona persona) {
+		//dovrei controllare l'email che non sia duplicata
+		
 		Persona nuovaPersona = personaRepo.save(persona);
 		return nuovaPersona;
 	}
@@ -45,9 +48,27 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 	}
 
 	@Override
-	public Persona findByEmail(String email) {
-		
+	public Persona findByEmail(String email) {		
 		return personaRepo.findByEmail(email);
+	}
+
+
+	@Override
+	public LoginEsito login(String email, String password) {
+		Optional<Persona> personaOptional = personaRepo.findByEmailAndPassword(email, password);
+		LoginEsito esito = new LoginEsito();
+		if(personaOptional.isEmpty())
+		{
+			esito.setEsitoLogin(false);
+			esito.setPersona(new Persona());
+		}
+		else {	
+			esito.setEsitoLogin(true);
+			esito.setPersona(personaOptional.get());
+		}
+		
+		return esito;
+		
 	}
 
 

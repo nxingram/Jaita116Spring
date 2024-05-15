@@ -27,5 +27,8 @@ public class MainInterfacce {
 		
 		Guidare barca = new Barca();
 		
+		System.out.println(barca instanceof Barca);
+		System.out.println(barca.getClass().getFields());
+		
 	}
 }

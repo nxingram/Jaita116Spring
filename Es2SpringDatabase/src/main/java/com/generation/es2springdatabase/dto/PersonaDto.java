@@ -10,6 +10,8 @@ public class PersonaDto {
 	private String cognome;
 	private int eta;
 	private BigDecimal stipendio;
+	private String email;
+	private String password;
 
 	public int getPersonaId() {
 		return personaId;
@@ -49,6 +51,22 @@ public class PersonaDto {
 
 	public void setStipendio(BigDecimal stipendio) {
 		this.stipendio = stipendio;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

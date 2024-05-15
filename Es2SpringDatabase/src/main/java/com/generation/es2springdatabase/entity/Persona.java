@@ -16,6 +16,12 @@ import jakarta.persistence.Table;
 @Table(name = "persone_new")
 public class Persona {
 
+
+
+	/*
+	 * RICORDATI DI SPIEGARE @Id di tipo String
+	 */
+	
 	@Id //chiave primaria
 	@Column(name = "persona_id") //nome dell'attributo della tabella, nel caso fosse differente
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // l'autoincrement lo fa mysql, non java/spring
@@ -54,6 +60,29 @@ public class Persona {
 		this.eta = eta;
 		this.stipendio = stipendio;
 	}
+	
+	public Persona(String nome, String cognome, int eta, BigDecimal stipendio, String email, String password) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.eta = eta;
+		this.stipendio = stipendio;
+		this.email = email;
+		this.password = password;
+	}
+	
+
+
+	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio, String email,
+			String password) {
+		this.personaId = personaId;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.eta = eta;
+		this.stipendio = stipendio;
+		this.email = email;
+		this.password = password;
+	}
+	
 	
 	//
 	/**
