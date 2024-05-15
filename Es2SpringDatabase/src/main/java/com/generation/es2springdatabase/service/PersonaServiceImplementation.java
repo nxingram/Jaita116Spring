@@ -49,7 +49,10 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 
 	@Override
 	public Persona findByEmail(String email) {		
-		return personaRepo.findByEmail(email);
+//		return personaRepo.findByEmail(email);
+//		return personaRepo.findByEmailJPQL(email);
+		return personaRepo.findNyEmailNative(email);
+		
 	}
 
 
@@ -69,6 +72,20 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 		
 		return esito;
 		
+	}
+
+
+	@Override
+	public boolean findByEmailExists(String email) {
+		Persona persona = this.findByEmail(email);
+		if(persona == null)
+		{
+			return false;
+		}
+		else
+		{
+			return true;			
+		}
 	}
 
 

@@ -62,17 +62,11 @@ public class PersonaController {
 	//locahost:8080/api/persona POST: aggiungere - modifica
 	@PostMapping //? = Jolly
 	public ResponseEntity<?> aggiungiPersona(@RequestBody PersonaDto personaDto){
-		Persona pers = new Persona(
-				personaDto.getNome(),
-				personaDto.getCognome(),
-				personaDto.getEta(),
-				personaDto.getStipendio(),
-				personaDto.getEmail(),
-				personaDto.getPassword()
-				);		
+		Persona pers = personaDto.toPersona();
 		
-		Persona esisteGia = personaService.findByEmail(pers.getEmail());
-		if(esisteGia != null)
+		//Rifattorizziamo: riscriviamo il codice
+		boolean esisteGia = personaService.findByEmailExists(pers.getEmail());
+		if(esisteGia)
 		{
 			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
 		}
@@ -85,18 +79,16 @@ public class PersonaController {
 	//locahost:8080/api/persona PUT: modificare  - modifica
 	@PutMapping //aggiorna
 	public ResponseEntity<?> aggiornaPersona(@RequestBody PersonaDto personaDto){
-		Persona pers = new Persona(
-				personaDto.getPersonaId(), //persona_id mysql per aggioranre la riga
-				personaDto.getNome(),
-				personaDto.getCognome(),
-				personaDto.getEta(),
-				personaDto.getStipendio(),
-				personaDto.getEmail(),
-				personaDto.getPassword()
-				);		
 		
-		Persona esisteGia = personaService.findByEmail(pers.getEmail());
-		if(esisteGia != null)
+		if(personaDto.getPersonaId()<=0)
+		{
+			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
+		}
+		
+		Persona pers = personaDto.toPersona();
+		
+		boolean esisteGia = personaService.findByEmailExists(pers.getEmail());
+		if(esisteGia)
 		{
 			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
 		}

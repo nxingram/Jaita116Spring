@@ -3,6 +3,7 @@ package com.generation.es2springdatabase.dto;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.generation.es2springdatabase.entity.Persona;
 
 public class PersonaDto {
 	private int personaId; 	
@@ -11,7 +12,36 @@ public class PersonaDto {
 	private int eta;
 	private BigDecimal stipendio;
 	private String email;
-	private String password;
+	private String password;	
+	
+	//conversione/mappatura da un tipo Dto ad Entità
+	public Persona toPersona()
+	{
+		return new Persona(
+				this.getPersonaId(),
+				this.getNome(),
+				this.getCognome(),
+				this.getEta(),
+				this.getStipendio(),
+				this.getEmail(),
+				this.getPassword()
+				);
+	}
+	//conversione/mappatura da un tipo entita a dto
+	public PersonaDto toPersonaDto(Persona p)
+	{
+		PersonaDto dto = new PersonaDto();
+		dto.setPersonaId(p.getPersonaId());
+		dto.setNome(p.getNome());
+		dto.setCognome(p.getCognome());
+		dto.setEta(p.getEta());
+		dto.setStipendio(p.getStipendio());
+		dto.setEmail(p.getEmail());
+		dto.setPassword(p.getPassword());
+		return dto;
+	}
+	
+	
 
 	public int getPersonaId() {
 		return personaId;

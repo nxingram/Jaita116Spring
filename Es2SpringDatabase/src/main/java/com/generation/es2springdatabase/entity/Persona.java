@@ -45,35 +45,18 @@ public class Persona {
 	private String password;
 	
 	
-	//se io aggiungo un costtore con dei parametri, devo aggiungere manualmente il costruttore vuoto
-	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio) {
-		this.personaId = personaId;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.eta = eta;
-		this.stipendio = stipendio;
-	}
 	
-	public Persona( String nome, String cognome, int eta, BigDecimal stipendio) {
-		this.nome = nome;
-		this.cognome = cognome;
-		this.eta = eta;
-		this.stipendio = stipendio;
-	}
+//	public Persona(String nome, String cognome, int eta, BigDecimal stipendio, String email, String password) {
+//		this.nome = nome;
+//		this.cognome = cognome;
+//		this.eta = eta;
+//		this.stipendio = stipendio;
+//		this.email = email;
+//		this.password = password;
+//	}
 	
-	public Persona(String nome, String cognome, int eta, BigDecimal stipendio, String email, String password) {
-		this.nome = nome;
-		this.cognome = cognome;
-		this.eta = eta;
-		this.stipendio = stipendio;
-		this.email = email;
-		this.password = password;
-	}
-	
-
-
-	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio, String email,
-			String password) {
+	//se io aggiungo un costruttore con dei parametri, devo aggiungere manualmente il costruttore vuoto
+	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio, String email,String password) {
 		this.personaId = personaId;
 		this.nome = nome;
 		this.cognome = cognome;

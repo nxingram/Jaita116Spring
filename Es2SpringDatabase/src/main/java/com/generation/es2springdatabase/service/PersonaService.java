@@ -12,6 +12,6 @@ public interface PersonaService {
 	Persona addOrUpdate(Persona persona);
 	void deleteById(Persona persona);
 	Persona findByEmail(String email);
-	//boolean findByEmailEsiste(String email);
+	boolean findByEmailExists(String email);
 	LoginEsito login(String email, String password);
 }
