@@ -11,6 +11,7 @@
 - [Defining Query Methods](https://docs.spring.io/spring-data/commons/reference/repositories/query-methods-details.html)
 - [JPA Query Methods](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
 - [JPA Proiezioni](https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html#projections)
+- [Logging](https://www.baeldung.com/spring-boot-logging)
 
 ## Dipendenze utili
 [Openapi Swagger esempio baeldung](https://www.baeldung.com/spring-rest-openapi-documentation)
