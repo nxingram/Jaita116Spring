@@ -77,10 +77,10 @@ public interface PersonaRepository extends JpaRepository<Persona, Integer> {
 	// Proiezioni - Projections
 //	https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html)
 
-	Collection<PersonaView> findByCognome(String cognome);
-
-	@Query("Select new com.generation.es2springdatabase.dto.PersonaDTO(p.nome, p.cognome) from Persona p Where p.email = ?1 And p.password = ?2")
-	PersonaDtoNomeCognome findByEmailAndPasswordPoiezione(String email, String password);
+//	Collection<PersonaView> findByCognome(String cognome);
+//
+//	@Query("Select new com.generation.es2springdatabase.dto.PersonaDTO(p.nome, p.cognome) from Persona p Where p.email = ?1 And p.password = ?2")
+//	PersonaDtoNomeCognome findByEmailAndPasswordPoiezione(String email, String password);
 	
 	
 	

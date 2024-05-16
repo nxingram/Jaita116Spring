@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.es2springdatabase.dto.PersonaDto;
+import com.generation.es2springdatabase.entity.Indirizzo;
 import com.generation.es2springdatabase.entity.Persona;
+import com.generation.es2springdatabase.service.IndirizzoServiceImpl;
 import com.generation.es2springdatabase.service.PersonaService;
 import com.generation.es2springdatabase.service.PersonaServiceImplementation;
 
@@ -28,6 +30,9 @@ public class PersonaController {
 
 	@Autowired
 	PersonaService personaService; //ioc + dependency injection
+	
+	@Autowired
+	IndirizzoServiceImpl indirSrv;
 	
 	@GetMapping //locahost:8080/api/persona GET:prendere/cercare - solo lettura
 	public List<Persona> getAllPersone(){
@@ -121,6 +126,17 @@ public class PersonaController {
 		
 	}
 	
+	//locahost:8080/api/persona/1/indirizzo
+	@PostMapping("/{id-pers}/indirizzo")
+	public ResponseEntity<Indirizzo> aggiungiIndirizzo(@RequestBody Indirizzo indirizzo, @PathVariable("id-pers") int idPers)
+	{
+		Optional<Persona> optPers = personaService.getById(idPers);
+		Persona pers = optPers.get();		
+		indirizzo.setPersona(pers);
+		indirSrv.addOrUpdate(indirizzo);
+		
+		return new ResponseEntity<Indirizzo>(indirizzo, HttpStatus.OK);
+	}
 	
 	
 	

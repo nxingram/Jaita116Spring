@@ -5,11 +5,14 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -43,6 +46,10 @@ public class Persona {
 	
 	@JsonIgnore
 	private String password;
+	
+	//relazione con indirizzo
+	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
+	private Indirizzo indirizzo;
 	
 	
 	
@@ -137,6 +144,16 @@ public class Persona {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public Indirizzo getIndirizzo() {
+		return indirizzo;
+	}
+
+
+	public void setIndirizzo(Indirizzo indirizzo) {
+		this.indirizzo = indirizzo;
 	}
 
 
