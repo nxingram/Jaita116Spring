@@ -1,0 +1,17 @@
+Esecizio Editori:
+
+creare nuovo database EsSpring con permessi all'utente app_java
+Creare una tabella Editori come nel database Libro ed inserire i valori di editore (copiare)
+Utilizziamo la procedura Database First 
+
+creare progetto Spring Boot
+1.Entità
+2.Repository
+3.Service
+4.Controller Editori
+5.Implementare metodi
+	a.get all
+	b.get one
+	c.post
+	d.put
+	e.delete
