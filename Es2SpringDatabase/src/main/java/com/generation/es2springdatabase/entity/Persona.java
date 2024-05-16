@@ -2,6 +2,7 @@ package com.generation.es2springdatabase.entity;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,6 +13,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -51,7 +55,23 @@ public class Persona {
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
 	private Indirizzo indirizzo;
 	
+	//https://www.baeldung.com/hibernate-one-to-many
+	@OneToMany(mappedBy = "persona") //mappedBy è il nome della variabile persona nella classe macchina
+	private List<Macchina> macchine; 
 	
+	
+	//https://www.baeldung.com/jpa-many-to-many
+	@ManyToMany //semplice/automatico dove non creo l'antità della tabella relazionale
+	@JoinTable(
+			name = "persona_scarpe",
+			joinColumns = @JoinColumn(name = "persona_id"),
+			inverseJoinColumns = @JoinColumn(name = "modello_id")
+			)
+	private List<Scarpe> scarpe;
+	
+	//https://www.baeldung.com/jpa-many-to-many#many-to-many-with-a-new-entity
+	@OneToMany(mappedBy = "persona")
+	private List<Iscrizione> iscrizioni;
 	
 //	public Persona(String nome, String cognome, int eta, BigDecimal stipendio, String email, String password) {
 //		this.nome = nome;
@@ -154,6 +174,36 @@ public class Persona {
 
 	public void setIndirizzo(Indirizzo indirizzo) {
 		this.indirizzo = indirizzo;
+	}
+
+
+	public List<Macchina> getMacchine() {
+		return macchine;
+	}
+
+
+	public void setMacchine(List<Macchina> macchine) {
+		this.macchine = macchine;
+	}
+
+
+	public List<Scarpe> getScarpe() {
+		return scarpe;
+	}
+
+
+	public void setScarpe(List<Scarpe> scarpe) {
+		this.scarpe = scarpe;
+	}
+
+
+	public List<Iscrizione> getIscrizioni() {
+		return iscrizioni;
+	}
+
+
+	public void setIscrizioni(List<Iscrizione> iscrizioni) {
+		this.iscrizioni = iscrizioni;
 	}
 
 
