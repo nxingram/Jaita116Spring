@@ -19,7 +19,14 @@
 - [Many-To-Many Relationship](https://www.baeldung.com/jpa-many-to-many)
  
 #### Thymeleaf
-- [Introduction to Using Thymeleaf](https://www.baeldung.com/thymeleaf-in-spring-mvc)
+- [Thymeleaf documentazione](https://www.thymeleaf.org/documentation.html)
+  - [docs tutorial](https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html)
+  - [docs spring tutorial](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html)   
+- [Baeldung Introduction to Using Thymeleaf](https://www.baeldung.com/thymeleaf-in-spring-mvc)
+- [Pagina errore](https://www.baeldung.com/spring-boot-custom-error-page)
+
+#### Maven
+- [Maven lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 
 ## Dipendenze utili
 [Openapi Swagger esempio baeldung](https://www.baeldung.com/spring-rest-openapi-documentation)
