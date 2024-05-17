@@ -12,7 +12,7 @@
 	<groupId>com.generation</groupId>
 	<artifactId>es2springdatabase</artifactId>
 	<version>0.0.1</version>
-	<name>Es2SpringDatabase</name>
+	<name>Es2SpringDatabaseDemo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

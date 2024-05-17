@@ -26,13 +26,17 @@ public class ScarpeServiceImpl {
 	@Autowired
 	private PersonaService persService;
 	
-	@Transactional(rollbackOn = Exception.class)
-	public boolean salvaScarpe(Scarpe scarpe, int idPers) throws Exception{
+	@Transactional(rollbackOn = Exception.class) //transazione su modifiche
+	public boolean salvaScarpe(Scarpe scarpe, int idPers) throws Exception {
+		//begin transaction
+		
 		scarpeRepo.save(scarpe);
 		logger.info("Salvato scarpe");
 		Persona persona = persService.getById(idPers).get();
 
-		//this.lanciaEccezione();
+		
+		//this.lanciaEccezione(); 
+		//rollback transaction
 		
 		//cerca tutte le scarpe di questa persona
 		//aggiungi questa scarpa a questa persona			
@@ -46,6 +50,8 @@ public class ScarpeServiceImpl {
 		}
 		persService.addOrUpdate(persona);
 		logger.info("Salvato persona");
+		
+		//commit transaction
 		return true;
 	}
 	

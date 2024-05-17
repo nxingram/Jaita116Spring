@@ -30,7 +30,7 @@ public class PersonaControllerMvc {
 	public String elencoPersone(Model model) {
 		List<Persona> persone = persSrv.getAll();
 		model.addAttribute("listaPersone", persone);
-		return "persona-elenco";		
+		return "persona-elenco";//persona-elenco.html Thymeleaf
 	}
 	
 	// New persona form: riuso stesso di update form
@@ -52,7 +52,7 @@ public class PersonaControllerMvc {
 		
 		// se l'id non è presente su db, redireziono sulla lista persone
 		if(persOpt.isEmpty())
-			return "redirect:/mvc";
+			return "redirect:/persona";
 		
 		// lo aggiungo al model
 		model.addAttribute("persona", persOpt.get()); 
