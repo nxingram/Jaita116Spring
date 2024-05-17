@@ -28,6 +28,7 @@ public class Macchina {
 	@Column(length = 50, unique = true)
 	private String targa;
 
+	//https://www.baeldung.com/hibernate-one-to-many
 	@JsonIgnore
 	@ManyToOne //- per relazione bidirezionale
 	@JoinColumn(name = "persona_id", nullable = false)
@@ -72,5 +73,4 @@ public class Macchina {
 	public void setTarga(String targa) {
 		this.targa = targa;
 	}
-
 }

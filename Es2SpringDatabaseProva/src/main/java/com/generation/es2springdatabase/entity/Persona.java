@@ -3,7 +3,6 @@ package com.generation.es2springdatabase.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -22,25 +20,25 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "persone")
+@Table(name = "persone_new")
 public class Persona {
+
+
 
 	/*
 	 * RICORDATI DI SPIEGARE @Id di tipo String
 	 */
 	
-	
-	
 	@Id //chiave primaria
 	@Column(name = "persona_id") //nome dell'attributo della tabella, nel caso fosse differente
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // l'autoincrement lo fa mysql, non java/spring
-	private int personaId;
+	private int personaId; 	
 	
 	//@Column(name = "nome") //se il nome dell'attributo mysql coincide con quello di java, @Column-name è opzionale
 	@Column(length = 100)
 	private String nome;
 	@Column(length = 150)
-	private String cognome;
+	private String cognome;	
 	private int eta;
 	
 	@JsonIgnore //nascondi lo stipendio quando generi il json nella riposta
@@ -53,17 +51,17 @@ public class Persona {
 	@JsonIgnore
 	private String password;
 	
-	//https://www.baeldung.com/jpa-one-to-one
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "indirizzo_id" /*, referencedColumnName = "indirizzo_id" */)
+	//relazione con indirizzo
+	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
 	private Indirizzo indirizzo;
 	
 	//https://www.baeldung.com/hibernate-one-to-many
-	@OneToMany(mappedBy = "persona")
+	@OneToMany(mappedBy = "persona") //mappedBy è il nome della variabile persona nella classe macchina
 	private List<Macchina> macchine; 
 	
+	
 	//https://www.baeldung.com/jpa-many-to-many
-	@ManyToMany
+	@ManyToMany //semplice/automatico dove non creo l'antità della tabella relazionale
 	@JoinTable(
 			name = "persona_scarpe",
 			joinColumns = @JoinColumn(name = "persona_id"),
@@ -71,25 +69,30 @@ public class Persona {
 			)
 	private List<Scarpe> scarpe;
 	
+	//https://www.baeldung.com/jpa-many-to-many#many-to-many-with-a-new-entity
 	@OneToMany(mappedBy = "persona")
 	private List<Iscrizione> iscrizioni;
 	
+//	public Persona(String nome, String cognome, int eta, BigDecimal stipendio, String email, String password) {
+//		this.nome = nome;
+//		this.cognome = cognome;
+//		this.eta = eta;
+//		this.stipendio = stipendio;
+//		this.email = email;
+//		this.password = password;
+//	}
 	
-	//se io aggiungo un costtore con dei parametri, devo aggiungere manualmente il costruttore vuoto
-	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio) {
+	//se io aggiungo un costruttore con dei parametri, devo aggiungere manualmente il costruttore vuoto
+	public Persona(int personaId, String nome, String cognome, int eta, BigDecimal stipendio, String email,String password) {
 		this.personaId = personaId;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
 		this.stipendio = stipendio;
+		this.email = email;
+		this.password = password;
 	}
 	
-	public Persona( String nome, String cognome, int eta, BigDecimal stipendio) {
-		this.nome = nome;
-		this.cognome = cognome;
-		this.eta = eta;
-		this.stipendio = stipendio;
-	}
 	
 	//
 	/**
@@ -163,36 +166,44 @@ public class Persona {
 		this.password = password;
 	}
 
-	public List<Macchina> getMacchine() {
-		return macchine;
-	}
-
-	public void setMacchine(List<Macchina> macchine) {
-		this.macchine = macchine;
-	}
-
-	public List<Scarpe> getScarpe() {
-		return scarpe;
-	}
-
-	public void setScarpe(List<Scarpe> scarpe) {
-		this.scarpe = scarpe;
-	}
-
-	public List<Iscrizione> getIscrizioni() {
-		return iscrizioni;
-	}
-
-	public void setIscrizioni(List<Iscrizione> iscrizioni) {
-		this.iscrizioni = iscrizioni;
-	}
 
 	public Indirizzo getIndirizzo() {
 		return indirizzo;
 	}
 
+
 	public void setIndirizzo(Indirizzo indirizzo) {
 		this.indirizzo = indirizzo;
+	}
+
+
+	public List<Macchina> getMacchine() {
+		return macchine;
+	}
+
+
+	public void setMacchine(List<Macchina> macchine) {
+		this.macchine = macchine;
+	}
+
+
+	public List<Scarpe> getScarpe() {
+		return scarpe;
+	}
+
+
+	public void setScarpe(List<Scarpe> scarpe) {
+		this.scarpe = scarpe;
+	}
+
+
+	public List<Iscrizione> getIscrizioni() {
+		return iscrizioni;
+	}
+
+
+	public void setIscrizioni(List<Iscrizione> iscrizioni) {
+		this.iscrizioni = iscrizioni;
 	}
 
 

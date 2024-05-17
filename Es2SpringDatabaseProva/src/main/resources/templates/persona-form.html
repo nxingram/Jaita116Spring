@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/head"></head>
+<body>
+    <div class="container">
+		<div th:replace="/common/navbar"></div>
+		
+		<h2>Aggiungi/Aggiorna Persona</h2>
+		<form th:action="@{/persona/save/} + *{personaId}" method="post" th:object="${persona}">
+			<div>
+				<label for="personaId">Id</label> 
+				<input type="number" name="personaId" id="personaId" th:value="*{personaId}" hidden>
+			</div>
+			<div>
+				<label for="nome">Nome</label> 
+				<input type="text" name="nome" id="nome" th:value="*{nome}" >
+			</div>
+			<div>
+				<label for="cognome">Cognome</label> 
+				<input type="text" name="cognome" th:value="*{cognome}"> 
+			</div>
+			<div>
+				<label for="cognome">Età</label> 
+				<input type="number" name="eta" th:value="*{eta}"> 
+			</div>
+			<div>
+				<label for="cognome">stipendio</label> 
+				<input type="number" step="0.01" name="stipendio" th:value="*{stipendio}"> 
+			</div>			
+			<div>
+				<label for="email">Email</label> 
+				<input type="email" name="email" th:value="*{email}">
+			</div>
+			<input type="submit" value="Salva">
+		</form>
+	</div>
+	
+	</div>
+
+    <script th:replace="/common/footer"></script>
+</body>
+</html>

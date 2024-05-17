@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/common/head}"></head>
+<body>
+    <div class="container">
+		<div th:replace="~{/common/navbar}"></div>
+		
+		<h2>MVC</h2>
+		<ul>
+			<li><a href="/persona">Elenco Persone</a></li>
+            <li><a th:href="@{/persona/form}">Aggiungi Persona</a></li>
+		</ul>
+	
+	</div>
+
+    <script th:replace="~{/common/footer}"></script>
+</body>
+</html>

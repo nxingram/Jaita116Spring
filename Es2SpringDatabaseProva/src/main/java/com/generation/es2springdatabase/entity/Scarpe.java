@@ -1,23 +1,21 @@
 package com.generation.es2springdatabase.entity;
 
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 
 @Entity
 //@Table(name = "scarpe")
 public class Scarpe {
 
 	@Id
-	private String modello_id;
+	private String modelloId;
 	
-	private String Colore;
+	private String colore;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "scarpe")
@@ -31,23 +29,21 @@ public class Scarpe {
 		this.persone = persone;
 	}
 
+	public String getModelloId() {
+		return modelloId;
+	}
 
-
+	public void setModelloId(String modelloId) {
+		this.modelloId = modelloId;
+	}
 
 	public String getColore() {
-		return Colore;
+		return colore;
 	}
 
 	public void setColore(String colore) {
-		Colore = colore;
+		this.colore = colore;
 	}
 
-	public String getModello_id() {
-		return modello_id;
-	}
-
-	public void setModello_id(String modello_id) {
-		this.modello_id = modello_id;
-	}
-
+	
 }

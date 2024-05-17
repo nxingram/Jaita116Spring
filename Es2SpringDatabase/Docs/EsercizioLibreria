@@ -1,0 +1,14 @@
+Esecizio Libreria:
+
+Con il database EsSpring creato per l'esercizio Editori
+Creare le tabelle mancanti:
+1.libro
+2.autore
+3.autore_libro
+
+creare
+1.Entità
+2.Implementare relazioni jpa tra tabelle
+3.creare le api per ottenere in formato json
+	b.tutti i libri - array json con autori ed editori
+	a.1 libro

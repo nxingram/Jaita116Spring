@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.es2springdatabase.dto.PersonaDto;
+import com.generation.es2springdatabase.entity.Indirizzo;
 import com.generation.es2springdatabase.entity.Persona;
+import com.generation.es2springdatabase.service.IndirizzoServiceImpl;
 import com.generation.es2springdatabase.service.PersonaService;
 import com.generation.es2springdatabase.service.PersonaServiceImplementation;
 
@@ -29,6 +31,9 @@ public class PersonaController {
 	@Autowired
 	PersonaService personaService; //ioc + dependency injection
 	
+	@Autowired
+	IndirizzoServiceImpl indirSrv;
+	
 	@GetMapping //locahost:8080/api/persona GET:prendere/cercare - solo lettura
 	public List<Persona> getAllPersone(){
 		return personaService.getAll();
@@ -37,14 +42,6 @@ public class PersonaController {
 	//locahost:8080/api/persona/1 GET:prendere/cercare- solo lettura
 	@GetMapping("/{id-persona}")
 	public ResponseEntity<Persona> dammiPersonaConId(@PathVariable("id-persona") int idPers) {
-//		Persona persona = personaService.getById(idPers);	
-//		if(persona == null)
-//		{
-//			return new ResponseEntity<Persona>(new Persona(), HttpStatus.NOT_FOUND);
-//		}else
-//		{
-//			return new ResponseEntity<Persona>(persona, HttpStatus.OK);
-//		}		
 		
 		Optional<Persona> optional = personaService.getById(idPers);
 		if(optional.isEmpty())
@@ -62,13 +59,15 @@ public class PersonaController {
 	//locahost:8080/api/persona POST: aggiungere - modifica
 	@PostMapping //? = Jolly
 	public ResponseEntity<?> aggiungiPersona(@RequestBody PersonaDto personaDto){
-		Persona pers = new Persona(
-				personaDto.getNome(),
-				personaDto.getCognome(),
-				personaDto.getEta(),
-				personaDto.getStipendio()
-				);		
+		Persona pers = personaDto.toPersona();
 		
+		//Rifattorizziamo: riscriviamo il codice
+		boolean esisteGia = personaService.findByEmailExists(pers.getEmail());
+		if(esisteGia)
+		{
+			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
+		}
+			
 		Persona personaNew = personaService.addOrUpdate(pers);
 		return new ResponseEntity<Persona>(personaNew, HttpStatus.OK);	
 		
@@ -77,13 +76,19 @@ public class PersonaController {
 	//locahost:8080/api/persona PUT: modificare  - modifica
 	@PutMapping //aggiorna
 	public ResponseEntity<?> aggiornaPersona(@RequestBody PersonaDto personaDto){
-		Persona pers = new Persona(
-				personaDto.getPersonaId(), //persona_id mysql per aggioranre la riga
-				personaDto.getNome(),
-				personaDto.getCognome(),
-				personaDto.getEta(),
-				personaDto.getStipendio()
-				);		
+		
+		if(personaDto.getPersonaId()<=0)
+		{
+			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
+		}
+		
+		Persona pers = personaDto.toPersona();
+		
+		boolean esisteGia = personaService.findByEmailExists(pers.getEmail());
+		if(esisteGia)
+		{
+			return new ResponseEntity<PersonaDto>(personaDto , HttpStatus.BAD_REQUEST);	
+		}
 		
 		Persona personaNew = personaService.addOrUpdate(pers);
 		return new ResponseEntity<Persona>(personaNew, HttpStatus.OK);	
@@ -113,6 +118,17 @@ public class PersonaController {
 		
 	}
 	
+	//locahost:8080/api/persona/1/indirizzo
+	@PostMapping("/{id-pers}/indirizzo")
+	public ResponseEntity<Indirizzo> aggiungiIndirizzo(@RequestBody Indirizzo indirizzo, @PathVariable("id-pers") int idPers)
+	{
+		Optional<Persona> optPers = personaService.getById(idPers);
+		Persona pers = optPers.get();		
+		indirizzo.setPersona(pers);
+		indirSrv.addOrUpdate(indirizzo);
+		
+		return new ResponseEntity<Indirizzo>(indirizzo, HttpStatus.OK);
+	}
 	
 	
 	

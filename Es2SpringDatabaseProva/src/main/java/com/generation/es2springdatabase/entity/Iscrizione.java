@@ -12,8 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "iscrizioni")
 public class Iscrizione {
 
 	@Id
@@ -27,7 +29,7 @@ public class Iscrizione {
 	private int voto;
 	
 	@JsonIgnore
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "persona_id")
 	private Persona persona;
 	

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/common/head}"></head>
+<body>
+    <div class="container">
+		<div th:replace="~{/common/navbar}"></div>
+		
+		<h2>Lista delle persone</h2>
+		<div class="row">
+			<a th:href="@{/persona/aggiungi}"><span class="fa fa-plus" title="aggiungi">&nbsp;</span><span>Nuova Persona</span></a>
+		</div>
+
+		<div class="row">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Nome</th>
+						<th scope="col">Cognome</th>
+						<th scope="col">Età</th>
+						<th scope="col">Stipendio</th>
+						<th scope="col">Email</th>
+						<th scope="col">Azione</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="persona : ${listaPersone}">
+						<td th:text="${persona.personaId}"></td>
+						<td th:text="${persona.nome}"></td>
+						<td th:text="${persona.cognome}"></td>
+						<td th:text="${persona.eta}"></td>
+						<td th:text="${persona.stipendio}"></td>
+						<td th:text="${persona.email}"></td>
+						<td><a th:href="@{/persona/} + ${persona.personaId}"
+							class="fa fa-pencil" title="modifica"></a> <span>-</span> <a
+							th:href="@{/persona/delete/} + ${persona.personaId}" class="fa fa-trash"
+							title="cancella"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+	</div>
+
+    <script th:replace="~{/common/footer}"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.generation.es2springdatabase.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,35 +10,43 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "indirizzi")
 public class Indirizzo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int indirizzoId;
+	private long indirizzoId;
 
 	@Column(nullable = false)
 	private String via;
 	@Column(nullable = false)
-	private String numero;
+	private String civico;
 	@Column(nullable = false)
 	private String citta;
-	@Column(nullable = false, length = 2)
+	@Column(length = 2, nullable = false)
 	private String provincia;
-	@Column(length = 5,nullable = false)
+	@Column(length = 5, nullable = false)
 	private String cap;
+
+	//metodo manuale
+	//@Column(name = "persona_id")
+//	private int personaId;
 	
 	//https://www.baeldung.com/jpa-one-to-one
+	//con relazione uno a uno
 	@JsonIgnore
-	@OneToOne(mappedBy = "indirizzo")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "persona_id" , referencedColumnName = "persona_id") //referencedColumnName se l'id di persona è scritto in modo diverso es: id_pers
 	private Persona persona;
 
-	public int getIndirizzoId() {
+	public long getIndirizzoId() {
 		return indirizzoId;
 	}
 
-	public void setIndirizzoId(int indirizzoId) {
+	public void setIndirizzoId(long indirizzoId) {
 		this.indirizzoId = indirizzoId;
 	}
 
@@ -49,12 +58,12 @@ public class Indirizzo {
 		this.via = via;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getCivico() {
+		return civico;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setCivico(String civico) {
+		this.civico = civico;
 	}
 
 	public String getCitta() {
@@ -88,7 +97,18 @@ public class Indirizzo {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
+
+//	public int getPersonaId() {
+//		return personaId;
+//	}
+//
+//	public void setPersonaId(int personaId) {
+//		this.personaId = personaId;
+//	}
 	
 	
 	
+	
+
+
 }

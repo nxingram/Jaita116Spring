@@ -6,8 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.generation.es2springdatabase.dto.LoginEsito;
+import com.generation.es2springdatabase.dto.PersonaDto;
 import com.generation.es2springdatabase.entity.Persona;
 import com.generation.es2springdatabase.repository.PersonaRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PersonaServiceImplementation implements PersonaService { //Impl = implementazione di una interfaccia
@@ -31,6 +35,8 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 
 	@Override
 	public Persona addOrUpdate(Persona persona) {
+		//dovrei controllare l'email che non sia duplicata
+		
 		Persona nuovaPersona = personaRepo.save(persona);
 		return nuovaPersona;
 	}
@@ -45,9 +51,66 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 	}
 
 	@Override
-	public Persona findByEmail(String email) {
+	public Persona findByEmail(String email) {		
+//		return personaRepo.findByEmail(email);
+//		return personaRepo.findByEmailJPQL(email);
+		return personaRepo.findNyEmailNative(email);
 		
-		return personaRepo.findByEmail(email);
+	}
+
+
+	@Override
+	public LoginEsito login(String email, String password) {
+		Optional<Persona> personaOptional = personaRepo.findByEmailAndPassword(email, password);
+		LoginEsito esito = new LoginEsito();
+		if(personaOptional.isEmpty())
+		{
+			esito.setEsitoLogin(false);
+			esito.setPersona(new Persona());
+		}
+		else {	
+			esito.setEsitoLogin(true);
+			esito.setPersona(personaOptional.get());
+		}
+		
+		return esito;
+		
+	}
+
+
+	@Override
+	public boolean findByEmailExists(String email) {
+		Persona persona = this.findByEmail(email);
+		if(persona == null)
+		{
+			return false;
+		}
+		else
+		{
+			return true;			
+		}
+	}
+
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public boolean addOrUpdateDto(PersonaDto pdto) {
+		Optional<Persona> opt = personaRepo.findById(pdto.getPersonaId());
+		if(opt.isEmpty())
+		{
+			return false;
+		}
+		else
+		{
+			Persona pers = opt.get();
+			pers.setNome(pdto.getNome());
+			pers.setCognome(pdto.getCognome());
+			pers.setEta(pdto.getEta());
+			pers.setNome(pdto.getNome());
+			pers.setStipendio(pdto.getStipendio());
+			pers.setEmail(pdto.getEmail());
+			return true;			
+		}
 	}
 
 
