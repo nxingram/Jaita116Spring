@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.es2springdatabase.dto.LoginEsito;
+import com.generation.es2springdatabase.dto.PersonaDto;
 import com.generation.es2springdatabase.entity.Persona;
 import com.generation.es2springdatabase.repository.PersonaRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PersonaServiceImplementation implements PersonaService { //Impl = implementazione di una interfaccia
@@ -84,6 +87,28 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 		}
 		else
 		{
+			return true;			
+		}
+	}
+
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public boolean addOrUpdateDto(PersonaDto pdto) {
+		Optional<Persona> opt = personaRepo.findById(pdto.getPersonaId());
+		if(opt.isEmpty())
+		{
+			return false;
+		}
+		else
+		{
+			Persona pers = opt.get();
+			pers.setNome(pdto.getNome());
+			pers.setCognome(pdto.getCognome());
+			pers.setEta(pdto.getEta());
+			pers.setNome(pdto.getNome());
+			pers.setStipendio(pdto.getStipendio());
+			pers.setEmail(pdto.getEmail());
 			return true;			
 		}
 	}

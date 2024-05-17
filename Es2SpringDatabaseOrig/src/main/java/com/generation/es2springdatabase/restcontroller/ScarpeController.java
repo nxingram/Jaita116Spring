@@ -1,6 +1,7 @@
 package com.generation.es2springdatabase.restcontroller;
 
-
+import java.util.Arrays;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.generation.es2springdatabase.entity.Macchina;
+import com.generation.es2springdatabase.entity.Persona;
 import com.generation.es2springdatabase.entity.Scarpe;
-import com.generation.es2springdatabase.service.ScarpeServiceImpl;
+import com.generation.es2springdatabase.repository.ScarpeRepository;
+import com.generation.es2springdatabase.service.PersonaService;
 
 @RestController
 @RequestMapping("/api/scarpe")
@@ -22,21 +26,43 @@ public class ScarpeController {
 	Logger logger = LoggerFactory.getLogger(ScarpeController.class);
 	
 	@Autowired
-	private ScarpeServiceImpl scarpeSrv;	
+	ScarpeRepository scarpeRepo;
+	
+	@Autowired
+	private PersonaService persService;
+	
 	
 	@PostMapping("/persona/{id-pers}")
 	public ResponseEntity<?> aggiungiScarpe(@RequestBody Scarpe scarpe, @PathVariable("id-pers") int idPers)
 	{
 		try {
-			boolean esitoPositivo = scarpeSrv.salvaScarpe(scarpe, idPers);
-			if(esitoPositivo)
+			Persona persona = persService.getById(idPers).get();
+			//scarpe.setPersone( Arrays.asList(persona)); //NO!
+			
+			//cerca tutte le scarpe di questa persona
+			//aagiungi questa scarpa a questa persona
+//			List<Persona> persone = scarpe.getPersone();
+//			if(persone == null)
+//			{
+//				scarpe.setPersone(Arrays.asList(persona));
+//			}
+//			else {
+//				scarpe.getPersone().add(persona);
+//			}
+			
+			scarpeRepo.save(scarpe);
+			
+			List<Scarpe> scarpeList = persona.getScarpe();
+			if(scarpeList == null)
 			{
-				return ResponseEntity.ok(scarpe);				
+				persona.setScarpe(Arrays.asList(scarpe));
 			}
-			else
-			{
-				return ResponseEntity.badRequest().body(scarpe);
+			else {
+				persona.getScarpe().add(scarpe);
 			}
+			persService.addOrUpdate(persona);
+
+			return ResponseEntity.ok(scarpe);
 			
 		} catch (Exception e) {
 	        logger.error("An ERROR Message", e);

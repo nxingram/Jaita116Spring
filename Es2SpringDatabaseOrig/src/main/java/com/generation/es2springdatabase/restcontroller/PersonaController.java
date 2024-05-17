@@ -42,6 +42,14 @@ public class PersonaController {
 	//locahost:8080/api/persona/1 GET:prendere/cercare- solo lettura
 	@GetMapping("/{id-persona}")
 	public ResponseEntity<Persona> dammiPersonaConId(@PathVariable("id-persona") int idPers) {
+//		Persona persona = personaService.getById(idPers);	
+//		if(persona == null)
+//		{
+//			return new ResponseEntity<Persona>(new Persona(), HttpStatus.NOT_FOUND);
+//		}else
+//		{
+//			return new ResponseEntity<Persona>(persona, HttpStatus.OK);
+//		}		
 		
 		Optional<Persona> optional = personaService.getById(idPers);
 		if(optional.isEmpty())
