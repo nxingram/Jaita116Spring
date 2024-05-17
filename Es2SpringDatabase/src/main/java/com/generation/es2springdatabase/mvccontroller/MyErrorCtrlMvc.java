@@ -35,13 +35,13 @@ public class MyErrorCtrlMvc implements ErrorController  {
             Integer statusCode = Integer.valueOf(status.toString());
         
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "/errori/error-404";
+                return "/errori/error-404";//ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
             }
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "/errori/error-500";
+                return "/errori/error-500";//ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
             }
         }
-        return "error";
+        return "/error";//ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
     }
     
 }

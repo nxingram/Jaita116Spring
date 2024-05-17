@@ -30,7 +30,8 @@ public class PersonaControllerMvc {
 	public String elencoPersone(Model model) {
 		List<Persona> persone = persSrv.getAll();
 		model.addAttribute("listaPersone", persone);
-		return "persona-elenco";//persona-elenco.html Thymeleaf
+		//persona-elenco.html Thymeleaf
+		return "/persona-elenco"; //ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
 	}
 	
 	// New persona form: riuso stesso di update form
@@ -41,7 +42,7 @@ public class PersonaControllerMvc {
 		// viene bindato(legato) ai campi del form
 		model.addAttribute("persona", new Persona());
 		
-		return "persona-form";
+		return "/persona-form";//ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
 	}
 	
 	// Aggiorna persona form
@@ -58,7 +59,7 @@ public class PersonaControllerMvc {
 		model.addAttribute("persona", persOpt.get()); 
 		
 		// inoltro i dati alla pagina thymeleaf persona-form.html
-		return "persona-form";	
+		return "/persona-form";	//ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
 	}
 	
 	
@@ -93,6 +94,6 @@ public class PersonaControllerMvc {
 		// cancello persona
 		persSrv.deleteById(optPers.get());//nomeMetodoSbagliato! non è by id ma tutto l'oggetto
 		
-		return "redirect:/persona";
+		return "/redirect:/persona";//ATTENZIONE! mettere "/" iniziale altrimenti non funziona se compilato con jar!
 	}
 }
