@@ -98,7 +98,16 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 		Optional<Persona> opt = personaRepo.findById(pdto.getPersonaId());
 		if(opt.isEmpty())
 		{
-			return false;
+			Persona p =  new Persona();
+			p.setNome(pdto.getNome());
+			p.setCognome(pdto.getCognome());
+			p.setEta(pdto.getEta());
+			p.setNome(pdto.getNome());
+			p.setStipendio(pdto.getStipendio());
+			p.setEmail(pdto.getEmail());
+			
+			personaRepo.save(p);
+			return true;
 		}
 		else
 		{
@@ -109,9 +118,15 @@ public class PersonaServiceImplementation implements PersonaService { //Impl = i
 			pers.setNome(pdto.getNome());
 			pers.setStipendio(pdto.getStipendio());
 			pers.setEmail(pdto.getEmail());
+			
+			
+			
+			personaRepo.save(pers);
 			return true;			
 		}
 	}
+	
+	
 
 
 }
